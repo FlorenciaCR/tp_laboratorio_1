@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1599082071 source:c:\users\samsung\documents\tp1\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1599077229 c:\users\samsung\documents\tp1\funciones.h
+
+1599077140 source:c:\users\samsung\documents\tp1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	"funciones.h"
+
