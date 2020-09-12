@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "funciones.h"
 
-//Mostrar mensajes
-void mostrarMensaje(char mensaje[])
-{
-    puts(mensaje);
-    system("pause");
-    //system("pause") le permitirá al usuario leer el mensaje hasta que pulse una tecla
-}
-
 //Tomar numero del usuario
 int tomarNumero(char mensaje[])
 {
@@ -37,15 +29,16 @@ int funcionRestar(int a,int b)
     return resultado;
 }
 
-float funcionDividir(int a, int b)  // ver como validar si es 0.
+float funcionDividir(int a, int b)
 {
+
     float resultado;
 
     if(b==0)
     {
-        return 0;
+        return -1;
     } else {
-        resultado= a/b;
+        resultado= (float)a/b;
         return resultado;
     }
 }
@@ -59,7 +52,7 @@ int funcionMultiplicar(int a, int b)
 
 long long int  funcionFactorial (int n)
 {
-    long long int  fact = 0;
+    long long int  resultado = 0;
 
     if(n > 20){
         return 0;
@@ -69,16 +62,16 @@ long long int  funcionFactorial (int n)
     {
         if(n == 1 || n == 0)
         {
-            fact = 1;
+            resultado = 1;
         } else
         {
-            fact = n * funcionFactorial(n - 1);
+            resultado = n * funcionFactorial(n - 1);
         }
     } else {
-        fact = -1;
+        resultado = -1;
     }
 
-    return fact;
+    return resultado;
 }
 
 //Menu de opciones.
@@ -87,16 +80,16 @@ void mostrarMenu(int a, int b,int banderaA, int banderaB)
     printf("********************MENU*****************\n");
     if(banderaA)
     {
-        printf("1.Ingresar 1er operando (A=%d).\n\n",a);
+        printf("1.Ingresar primer operando (A=%d).\n\n",a);
     } else {
-        printf("1.Ingresar 1er operando (A=x).\n");
+        printf("1.Ingresar primer operando (A=x).\n");
     }
 
     if(banderaB)
     {
-        printf("2.Ingresar 1er operando (B=%d).\n",b);
+        printf("2.Ingresar segundo operando (B=%d).\n",b);
     } else {
-        printf("2.Ingresar 1er operando (B=y).\n");
+        printf("2.Ingresar segundo operando (B=y).\n");
     }
 
     if (banderaA && banderaB)
@@ -112,9 +105,9 @@ void mostrarMenu(int a, int b,int banderaA, int banderaB)
         printf("3.Calcular todas las operaciones.\n");
         printf("  a)Calcular suma (A + B).\n");
         printf("  b)Calcular resta (A - B).\n");
-        printf("  c)Calcular division (A - B).\n");
-        printf("  d)Calcular multiplicacion (A - B).\n");
-        printf("  e)Calcula el factorial de (A y B).\n");
+        printf("  c)Calcular division (A / B).\n");
+        printf("  d)Calcular multiplicacion (A * B).\n");
+        printf("  e)Calcula el factorial de (!A y !B).\n");
         printf("4.Informar los resultados.\n");
     }
     printf("5.Salir\n\n");
@@ -125,43 +118,44 @@ void mostrarMenu(int a, int b,int banderaA, int banderaB)
 //Resultados de todas las operaciones.
 void mostrarResultados(int a, int b,int opSuma, int opResta,float opDiv,int opMultip, long long int factorialA, long long int factorialB)
 {
-    printf("El resultado de %d + %d es: %d\n",a, b,opSuma);
-    printf("El resultado de %d - %d es: %d\n",a, b,opResta);
+    printf(" a)El resultado de %d + %d es: %d\n",a, b,opSuma);
+    printf(" b)El resultado de %d - %d es: %d\n",a, b,opResta);
     //Resultado de la division en caso de ser 0
-    if(opDiv == 0)
+    if(opDiv == -1)
     {
-        printf("Error .No se puede dividir por 0.\n");
+        printf(" c)No se puede dividir 0.\n");
     }
     else
     {
-        printf("El resultado de %d / %d es: %.2f\n",a, b,opDiv);
+        printf(" c)El resultado de %d / %d es: %.2f\n",a, b,opDiv);
     }
-    printf("El resultado de %d * %d es: %d\n",a, b,opMultip);
+    printf(" d)El resultado de %d * %d es: %d\n",a, b,opMultip);
 
     //Resultado de los factoriales en caso de ser 1 o 0
      if (factorialA == -1)
     {
-        printf("\ne)Error: No se puede calcular el factorial de %d porque es un numero negativo.\n" ,a);
+        printf(" e)Error: No se puede calcular el factorial de %d porque es un numero negativo.\n" ,a);
     }
     else if (factorialA == 0){
-        printf("\ne)Error: No se puede calcular el factorial de %d porque el numero ingresado es demasiado grande para este sistema. Por favor, ingrese un numero menor o igual a 20.\n", a);
+        printf(" e)Error: No se puede calcular el factorial de %d porque el numero ingresado es demasiado grande para este sistema. Por favor, ingrese un numero menor o igual a 20.\n", a);
     }
     else
     {
-        printf("\ne)El factorial de %d es: %ld \n", a, factorialA);
+        printf(" e)El factorial de %d es: %I64d \n", a, factorialA);
     }
 
     if (factorialB == -1)
     {
-        printf("\ne)Error: No se puede calcular el factorial de %d porque es un numero negativo.\n",b);
+        printf(" e)Error: No se puede calcular el factorial de %d porque es un numero negativo.\n\n",b);
     }
     else if (factorialB == 0){
-        printf("\ne)Error: No se puede calcular el factorial de %d porque el numero ingresado es demasiado grande para este sistema. Por favor, ingrese un numero menor o igual a 20.\n", b);
+        printf("\ne)Error: No se puede calcular el factorial de %d porque el numero ingresado es demasiado grande para este sistema. Por favor, ingrese un numero menor o igual a 20.\n\n", b);
     }
     else
     {
-        printf("\ne)El factorial de %d es: %ld \n",b,factorialB);
+        printf(" e)El factorial de %d es: %I64d \n\n",b,factorialB);
     }
 
 
 }
+

@@ -8,11 +8,7 @@
  *
  */
 int tomarNumero(char mensaje[]);
-/** \brief Muestra un mensaje y pausa la pantalla.
- *
- * \param mensaje a mostrar.
- */
-void mostrarMensaje(char mensaje[]);
+
 /** \brief Suma dos enteros y devuelve el resultado
  *
  * \param  primer operando
@@ -76,7 +72,7 @@ void mostrarMenu(int a, int b, int banderaA,int banderaB);
  * \param Resultado del factorial del primer numero.
  * \param Resultado del factorial del segundo numero.
  */
-void mostrarResultados(int a, int b,int opSuma, int opResta,float opDiv,int opMultip,long long int factorialA, long long int factorialB);
+void mostrarResultados(int a, int b,int opSuma, int opResta,float opDiv,int opMultip, long long int factorialA, long long int factorialB);
 
 
 #endif // FUNCIONES_H_INCLUDED

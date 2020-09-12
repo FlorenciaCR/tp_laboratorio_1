@@ -12,16 +12,16 @@
 	<stdint.h>
 	"funciones.h"
 
-1599082293 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\funciones.c
+1599879315 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 
-1599077229 c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\funciones.h
+1599866979 c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\funciones.h
 
-1599077140 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\main.c
+1599882721 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\main.c
 	<stdio.h>
 	<stdlib.h>
-	<stdint.h>
+	<inttypes.h>
 	"funciones.h"
 
