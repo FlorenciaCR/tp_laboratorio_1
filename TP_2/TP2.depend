@@ -1,0 +1,55 @@
+# depslib dependency file v1.0
+1601601251 source:c:\users\samsung\documents\tp2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
+1601594280 c:\users\samsung\documents\tp2\arrayemployees.h
+
+1601600732 source:c:\users\samsung\documents\tp2\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
+1601581938 c:\users\samsung\documents\tp2\inputs.h
+
+1601600124 source:c:\users\samsung\documents\tp2\inputs.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"inputs.h"
+
+1601600124 source:c:\users\samsung\documents\trabajospracticosgh\tp_2\inputs.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"inputs.h"
+
+1601581938 c:\users\samsung\documents\trabajospracticosgh\tp_2\inputs.h
+
+1601603522 source:c:\users\samsung\documents\trabajospracticosgh\tp_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
+1601594280 c:\users\samsung\documents\trabajospracticosgh\tp_2\arrayemployees.h
+
+1601605190 source:c:\users\samsung\documents\trabajospracticosgh\tp_2\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
