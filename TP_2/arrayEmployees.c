@@ -227,7 +227,7 @@ int removeEmployee(eEmployee listaEmpleados[], int tam)
                 }
             }
         }
-    }// fin del if grande
+    }
     return error;
 }
 
@@ -343,7 +343,7 @@ void employeeReports(eEmployee listaEmpleados[], int tam)
         case 1:
             printf("\nOrdenar empleados por apellido y sector.\n");
             ordenAoD= getInt("Ingrese tipo de ordenamiento: (1 Ascendente o 2 Descendete): ","Error. Ingrese 1 para ascendente o 2 para descendente: ", 1,2);
-            if(sortEmployee(listaEmpleados,tam,ordenAoD)==1)
+            if(sortEmployee(listaEmpleados,tam,ordenAoD)==0)
             {
                 printEmployees(listaEmpleados, tam);
                 printf("\nSe ha realizado el ordenamiento.\n");
@@ -375,7 +375,7 @@ int sortEmployee(eEmployee listaEmpleados[], int tam, int orden)
     int i;
     int j;
     eEmployee employeeAux;
-    int error =0;
+    int error =1;
 
     if(listaEmpleados != NULL && tam >0)
     {
@@ -400,7 +400,7 @@ int sortEmployee(eEmployee listaEmpleados[], int tam, int orden)
                     }
                 }
             }
-            error=1; //Se ordeno
+            error=0; //Se ordeno
             break;
         case 2: // DESCENDENTE POR SECTOR Y APELLIDO
               for(i=0; i < tam - 1; i++)
@@ -417,14 +417,14 @@ int sortEmployee(eEmployee listaEmpleados[], int tam, int orden)
                         employeeAux = listaEmpleados[i];
                         listaEmpleados[i] = listaEmpleados[j];
                         listaEmpleados[j] = employeeAux;
-                    }
+                    }//Se ordeno de forma DESCENDENTE
                 }
             }
-            error= 1; //Se ordeno de forma DESCENDENTE
+            error= 0;
             break;
         }
     }
-        //primero ordenar por sector y despues por apellido si son del mismo sector, despues al reves ambos
+
     return error;
 }
 

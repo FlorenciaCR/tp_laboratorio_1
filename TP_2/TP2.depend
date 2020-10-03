@@ -53,3 +53,30 @@
 	"arrayEmployees.h"
 	"inputs.h"
 
+1601600124 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\tp_2\inputs.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"inputs.h"
+
+1601684510 c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\tp_2\inputs.h
+
+1601603522 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\tp_2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
+1601683886 c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\tp_2\arrayemployees.h
+
+1601683887 source:c:\users\samsung\desktop\laboratorio-trabajospracticos\tp1\tp_2\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"arrayEmployees.h"
+	"inputs.h"
+
