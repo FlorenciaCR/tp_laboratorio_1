@@ -31,7 +31,7 @@ int mainMenu()
     return opcion;
 }
 
-Employee* employee_new(void) //USAR SETTERS!
+Employee* employee_new(void)
 {
     Employee* pNuevoEmpleado = NULL;
     pNuevoEmpleado= (Employee*) malloc(sizeof(Employee));
@@ -47,14 +47,14 @@ Employee* employee_new(void) //USAR SETTERS!
     return pNuevoEmpleado;
 }
 
-//Entender porque usa atoi??
+
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldoStr)
 {
     Employee* nuevoEmpleadoParam = NULL;
     nuevoEmpleadoParam = employee_new();
 
     if(nuevoEmpleadoParam != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL)
-    {   //Se niega todos setter en if porque si alguno devuelve 0(falla algun pasaje)-> libero memoria con employee_delete.
+    {
         if(!(employee_setId(nuevoEmpleadoParam,atoi(idStr))
              && employee_setNombre(nuevoEmpleadoParam,nombreStr)
              && employee_setHorasTrabajadas(nuevoEmpleadoParam,atoi(horasTrabajadasStr))
@@ -63,17 +63,17 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
             employee_delete(nuevoEmpleadoParam);
 
         }//Si hubo falla en el pasaje,se libera memoria y retorna NULL en empleado.
-    }//Si queda aca, devuelve NULL
+    }
 
     return nuevoEmpleadoParam;
 }
 
-void employee_delete(Employee* empleado) //LIBERA MEMORIA. Necesario ponerlo a null???
+void employee_delete(Employee* empleado) //LIBERA MEMORIA.
 {
     if(empleado!= NULL)
     {
-       empleado= NULL;
        free(empleado);
+       empleado = NULL;
     }
 }
 
@@ -98,7 +98,6 @@ int employee_setNombre(Employee* this,char* nombre) //VALIDAR CADENA!!
 
     if(this != NULL && nombre != NULL)
     {
-        //Se le pasa el nombre como parametro y se pasa a la esctrura-> nombre.
         strcpy(this->nombre, nombre);
         todoOk=1;//Todo ok, se cargo el nombre en la estructura.
     }
@@ -110,9 +109,8 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
     int todoOk=0;
     if(this!=NULL && horasTrabajadas>0)
     {
-    this->horasTrabajadas=horasTrabajadas;
-    //printf("HorasTr en setter: %d\n",horasTrabajadas);
-    todoOk=1;
+        this->horasTrabajadas=horasTrabajadas;
+        todoOk=1;
     }
     return todoOk;
 }
@@ -123,7 +121,6 @@ int employee_setSueldo(Employee* this,int sueldo)
     if(this!=NULL && sueldo>0)
     {
         this->sueldo= sueldo;
-//printf("Sueldo en setter: %d\n",sueldo);
         todoOk=1;
     }
     return todoOk;
@@ -138,7 +135,6 @@ int employee_getId(Employee* this, int* id)
     {
         //ID Es el valor, no la dirrecion de memoria por eso se usa *
         *id = this->id;//Guarda en el puntero a id lo que hay en this id.
-        //Es una d.m y quiero pasarle a esa variable el valor.
         todoOk=1;
     }
     return todoOk;
@@ -240,7 +236,7 @@ void printEmployee(LinkedList* pListaEmpleados, int indice)
 
 
 //ALTA
-int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS completo. Usar delete o free employee?
+int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS.
 {
     int todoOk=0;
     char auxNombre[30];
@@ -264,8 +260,6 @@ int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS completo.
         printf("Ingrese sueldo:");
         fflush(stdin);
         scanf("%d",&auxSueldo);
-        //Si Salen bien las validaciones
-        //Falta lo del ID autoncremental
         if(employee_setId(pNuevoEmpleado, auxId)
            && employee_setNombre(pNuevoEmpleado, auxNombre)
            && employee_setHorasTrabajadas(pNuevoEmpleado, auxHorasTrabajo)
@@ -277,7 +271,7 @@ int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS completo.
 
           }else{
                 employee_delete(pNuevoEmpleado);
-                printf("SALIO MAL EL ALTA.\n");
+                printf("Error en alta empleado.\n");
                 system("pause");
             }
     }
@@ -300,7 +294,7 @@ int findEmployeeById(LinkedList* pListaEmpleados,int id)
         if(pEmpleado != NULL)
         {
 
-            if(employee_getId(pEmpleado,&auxId)==1 && auxId == id)// Si esta cargado empleado y el id == aux es = al id
+            if(employee_getId(pEmpleado,&auxId)==1 && auxId == id)
             {
                 indice = i;//Si el id es igual al id del empleado muestra el indice.
                 break;
@@ -352,7 +346,7 @@ int removeEmployee(LinkedList* pListaEmpleados) //VALIDAR ID
 }
 
 //MODIFICACION
-int modifyEmployee(LinkedList* pListaEmpleados)//VALIDAR datos. da 1 si modifico algo unicamente.
+int modifyEmployee(LinkedList* pListaEmpleados)//VALIDAR.
 {
     int retorno = 0;
     int opcion;
@@ -466,7 +460,6 @@ int modifyName(LinkedList* pListaEmpleados,int  indice)
 
     pAuxEmpleado = (Employee*) ll_get(pListaEmpleados, indice);
 
-    //Validar nombre.
     if(pAuxEmpleado != NULL) // y validacion da ok...
     {
         printf("Ingrese nuevo nombre: ");
@@ -480,7 +473,7 @@ int modifyName(LinkedList* pListaEmpleados,int  indice)
     return todoOk;
 }
 
-int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)
+int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)//VALIDAR
 {
 
     int todoOk = 0;
@@ -489,8 +482,7 @@ int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)
 
     pAuxEmpleado = (Employee*) ll_get(pListaEmpleados, indice);
 
-    //Validar dato.
-    if(pAuxEmpleado != NULL) // y validacion da ok...
+    if(pAuxEmpleado != NULL)
     {
         printf("Ingrese horas de trabajo nuevas: ");
         scanf("%d",&newHours);
@@ -503,7 +495,7 @@ int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)
     return todoOk;
 }
 
-int modifySalary(LinkedList* pListaEmpleados,int  indice)
+int modifySalary(LinkedList* pListaEmpleados,int  indice)//VALIDAR
 {
 
     int todoOk = 0;
@@ -512,8 +504,8 @@ int modifySalary(LinkedList* pListaEmpleados,int  indice)
 
     pAuxEmpleado = (Employee*) ll_get(pListaEmpleados, indice);
 
-    //Validar dato.
-    if(pAuxEmpleado != NULL) // y validacion da ok...
+
+    if(pAuxEmpleado != NULL)
     {
         printf("Ingrese nuevo salario: ");
         scanf("%d",&newSalary);
@@ -544,7 +536,7 @@ int menuSortEmployee(void)
 
     return opcion;
 }
-int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR DATO!!
+int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR
 {
     int retorno=0;
     int opcion;
@@ -593,7 +585,7 @@ int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR DATO!!
     return retorno;
 }
 
-int sortById(void* empleadoA, void* empleadoB)//1? -1? 0?
+int sortById(void* empleadoA, void* empleadoB)
 {
     int resultado= 0;//Por default 0, son iguales ambos.
     Employee* auxEmpleadoA;//Son punteros a empleados por eso puedo acceder a los campos.
@@ -622,7 +614,7 @@ int sortById(void* empleadoA, void* empleadoB)//1? -1? 0?
 	return resultado;
 }
 
-int sortByWorkedHours(void* empleadoA, void* empleadoB)//1? -1? 0?
+int sortByWorkedHours(void* empleadoA, void* empleadoB)
 {
     int resultado= 0;//Por default 0, son iguales ambos.
     Employee* auxEmpleadoA;//Son punteros a empleados por eso puedo acceder a los campos.
@@ -650,7 +642,7 @@ int sortByWorkedHours(void* empleadoA, void* empleadoB)//1? -1? 0?
 	return resultado;
 }
 
-int sortBySalary(void* empleadoA, void* empleadoB)//1? -1? 0?
+int sortBySalary(void* empleadoA, void* empleadoB)
 {
     int resultado= 0;//Por default 0, son iguales ambos.
     Employee* auxEmpleadoA;//Son punteros a empleados por eso puedo acceder a los campos.
@@ -693,7 +685,7 @@ int sortByName(void* empleadoA, void* empleadoB)
         auxEmpleadoB= (Employee*) empleadoB;
         employee_getNombre(auxEmpleadoA, nombreA);
         employee_getNombre(auxEmpleadoB, nombreB);
-        resultado= stricmp(nombreA,nombreB);
+        resultado= strcmp(nombreA,nombreB);
     }
     return resultado;
 }

@@ -22,12 +22,9 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
 int employee_setSueldo(Employee* this,int sueldo);
 int employee_getSueldo(Employee* this,int* sueldo);
-
 int addEmployee(LinkedList* pListaEmpleados);
-
 void printEmployee(LinkedList* pListaEmpleados, int indice);
 int printAllEmployees(LinkedList* pListaEmpleados);
-
 int removeEmployee(LinkedList* pListaEmpleados);
 int findEmployeeById(LinkedList* pListaEmpleados,int id);
 int modifyEmployee(LinkedList* pListaEmpleados);
