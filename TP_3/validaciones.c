@@ -11,7 +11,7 @@ int getInt(int* numero ,char texto[],char textoError[], int minimo, int maximo)
     {
         printf("%s",texto);
         fflush(stdin);
-        scanf("%d", numero); //si dio 0 pido otra vez
+        scanf("%d", numero);
         while(*numero < minimo || *numero > maximo)
         {
             printf("%s",textoError);
