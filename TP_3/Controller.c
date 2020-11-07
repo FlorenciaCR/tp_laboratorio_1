@@ -220,4 +220,80 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     return todoOk;
 }
 
+/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+
+int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
+{
+    int todoOk = 0;
+    FILE* pMiArchivo;
+
+    pMiArchivo = fopen(path, "rb");
+
+
+    if(path != NULL && pArrayListEmployee != NULL)
+    {
+        if(pMiArchivo != NULL)
+        {
+            if(parser_EmployeeFromBinary(pMiArchivo, pArrayListEmployee))
+            {
+                printf("Archivo cargado con exito.\n");
+                todoOk =1;
+            } else {
+                printf("No se pudo leer el archivo correctamente.\n");
+            }
+        } else {
+            printf("No se pudo abrir el archivo.\n");
+            exit(EXIT_FAILURE);
+        }
+    } else {
+        printf("Error./n");
+    }
+    fclose(pMiArchivo);//Cierro archivo.
+
+    return todoOk;
+
+}
+
+
+/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
+{
+    int todoOk = 0;
+    FILE* pFile;
+    Employee* pEmployee;
+    int tam;
+
+    if(pArrayListEmployee != NULL && path != NULL)
+    {
+        pFile = fopen(path, "wb");
+        tam = ll_len(pArrayListEmployee);
+        for(int i = 0; i < tam; i++)
+        {
+            pEmployee = (Employee*) ll_get(pArrayListEmployee, i);
+            fwrite(pEmployee, sizeof(Employee), 1, pFile);
+        }
+        fclose(pFile);
+        printf("Se guardaron los datos en el archivo data.bin\n");
+        system("pause");
+        todoOk = 1;
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo\n");
+    }
+
+    return todoOk;
+}
 

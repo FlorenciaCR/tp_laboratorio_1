@@ -47,3 +47,33 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
     }
     return todoOk;
 }
+
+/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+ *
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
+int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
+{
+    int todoOk=0;
+    Employee* pEmpleado;
+
+    if(pFile != NULL && pArrayListEmployee != NULL)//Lee archivo.
+    {
+        do
+        {
+            pEmpleado = employee_new();
+
+            if(fread(pEmpleado, sizeof(Employee), 1, pFile) == 1) //Lee datos binarios.
+            {
+                ll_add(pArrayListEmployee, pEmpleado);
+                todoOk = 1;
+            }
+        }while(!feof(pFile));//Mientras no sea el final del archivo sigue leyendo.
+    } else {
+        employee_delete(pEmpleado);//Libero memoria.
+    }
+    return todoOk;
+}

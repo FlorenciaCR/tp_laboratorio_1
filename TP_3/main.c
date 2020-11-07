@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
@@ -39,37 +40,34 @@ int main()
 
             case 2:
                 //CARGA DATOS MODO BINARIO
-                printf("cargar binario");
+                controller_loadFromBinary("data.bin",listaEmpleados);
                 binLoaded = 1;
                 break;
-
 
             case 3:
            //ALTA EMPLEADO
                 controller_addEmployee(listaEmpleados);
-
-            break;
+                break;
 
             case 4:
            //MODIFICAR EMPLEADO
                 controller_editEmployee(listaEmpleados);
-            break;
+                break;
 
             case 5:
            //BAJA EMPLEADO
                 controller_removeEmployee(listaEmpleados);
-
-            break;
+                break;
 
             case 6:
            //LISTAR EMPLEADOS
                 controller_ListEmployee(listaEmpleados);
-            break;
+                break;
 
             case 7:
            //ORDENAR EMPLEADOS
                 controller_sortEmployee(listaEmpleados);
-            break;
+                break;
 
             case 8:
                 //GUARDA DATOS MODO TEXTO
@@ -81,7 +79,7 @@ int main()
             case 9:
                 //GUARDA DATOS MODO BINARIO
                 if(textLoaded || binLoaded){
-                    printf("guardar binario");
+                    controller_saveAsBinary("data.bin",listaEmpleados);
                 }
                 break;
 
@@ -92,3 +90,5 @@ int main()
     }while(opcion != 10);
     return 0;
 }
+
+

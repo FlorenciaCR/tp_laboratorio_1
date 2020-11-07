@@ -322,7 +322,7 @@
 	"LinkedList.h"
 	"Employee.h"
 
-1604718626 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\controller.c
+1604726167 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\controller.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -331,22 +331,39 @@
 
 1604424298 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\linkedlist.h
 
-1604613507 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\employee.h
+1604722517 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\employee.h
 
 1604424298 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\parser.h
 
-1604718788 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\main.c
+1604730137 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\main.c
 	<stdio.h>
 	<stdlib.h>
+	<ctype.h>
 	"LinkedList.h"
 	"Controller.h"
 	"Employee.h"
 
 1604424296 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\controller.h
 
-1604718626 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\parser.c
+1604725982 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Employee.h"
+
+1604732020 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+
+1604730137 source:c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validaciones.h"
+
+1604730137 c:\users\flore\onedrive\escritorio\tp git\tp_laboratorio_1\tp_3\validaciones.h
 

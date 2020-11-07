@@ -4,6 +4,7 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
+#include "validaciones.h"
 
 int idEmployee=2000;//Ya hay 1000 empleados.
 
@@ -14,14 +15,14 @@ int mainMenu()
     system("cls");
     printf("\t**** MENU DE OPCIONES ****\n\n");
     printf("1- Cargar datos de los empleados (Modo texto)\n");
-    //printf("2- Cargar datos de los empleados (Modo binario)\n");
+    printf("2- Cargar datos de los empleados (Modo binario)\n");
     printf("3- Alta de empleado\n");
     printf("4- Modificar datos de un empleado\n");
     printf("5- Baja de empleado\n");
     printf("6- Listar empleados\n");
     printf("7- Ordenar empleados\n");
     printf("8- Guardar los datos de los empleados (Modo texto)\n");
-    //printf("9- Guardar los datos de los empleados (Modo binario)\n");
+    printf("9- Guardar los datos de los empleados (Modo binario)\n");
     printf("10- Salir\n\n");
 
     printf("Indique la opcion: ");
@@ -73,14 +74,11 @@ void employee_delete(Employee* empleado) //LIBERA MEMORIA.
     if(empleado!= NULL)
     {
        free(empleado);
-       empleado = NULL;
     }
 }
 
 //SETTERS.
-//Se debe validar los datos antes de cargarlo a un campo de la estructura del empleado. (Darle valor a un atributo).Sirven para escribir.
-//Sirven para pisar valores como por ejempleo en una MODIFICACION.
-int employee_setId(Employee* this,int id) //VALIDAR NUMERO!!
+int employee_setId(Employee* this,int id)
 {
     int todoOk=0; //Error
     if(this != NULL && id >0)//Si la estructura existe y id es valido:
@@ -92,8 +90,9 @@ int employee_setId(Employee* this,int id) //VALIDAR NUMERO!!
     return todoOk;
 }
 
-int employee_setNombre(Employee* this,char* nombre) //VALIDAR CADENA!!
+int employee_setNombre(Employee* this,char* nombre)
 {
+
     int todoOk=0;
 
     if(this != NULL && nombre != NULL)
@@ -127,7 +126,6 @@ int employee_setSueldo(Employee* this,int sueldo)
 }
 
 //GETTERS.
-//Sirven para obtener el valor de un atributo, para leer/mostrar.Es de salida.
 int employee_getId(Employee* this, int* id)
 {
     int todoOk= 0;
@@ -251,32 +249,33 @@ int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS.
     {
         system("cls");
         printf("**********Alta empleado***********\n");
-        auxId=getNextId();
-        printf("Ingrese nombre:");
-        scanf("%s",auxNombre);
-        printf("Ingrese cantidad de horas de trabajo:");
-        fflush(stdin);
-        scanf("%d",&auxHorasTrabajo);
-        printf("Ingrese sueldo:");
-        fflush(stdin);
-        scanf("%d",&auxSueldo);
-        if(employee_setId(pNuevoEmpleado, auxId)
-           && employee_setNombre(pNuevoEmpleado, auxNombre)
-           && employee_setHorasTrabajadas(pNuevoEmpleado, auxHorasTrabajo)
-           && employee_setSueldo(pNuevoEmpleado, auxSueldo))
-          {
-                ll_add(pListaEmpleados, pNuevoEmpleado);
-                todoOk=1;
-                system("pause");
 
-          }else{
-                employee_delete(pNuevoEmpleado);
-                printf("Error en alta empleado.\n");
-                system("pause");
-            }
+        if(getString(auxNombre,"Ingrese nombre: ","Error.Reingrese nombre: ",30)
+           && getInt(&auxHorasTrabajo,"Ingrese cantidad de horas de trabajo: ", "Error. Reingrese horas de trabajo: ",0,10000000)
+           && getInt(&auxSueldo,"Ingrese sueldo: ","Error. Reingrese sueldo: ",1,10000000)
+            )
+        {
+            auxId=getNextId();
+
+            if(employee_setId(pNuevoEmpleado, auxId)==1
+               && employee_setNombre(pNuevoEmpleado, auxNombre)==1
+               && employee_setHorasTrabajadas(pNuevoEmpleado, auxHorasTrabajo)==1
+               && employee_setSueldo(pNuevoEmpleado, auxSueldo)==1)
+              {
+                    ll_add(pListaEmpleados, pNuevoEmpleado);
+                    todoOk=1;
+                    system("pause");
+
+              }else{
+                    employee_delete(pNuevoEmpleado);
+                    printf("Error en alta empleado.\n");
+                    system("pause");
+                }
+        }
+
+
     }
 
-    employee_delete(pNuevoEmpleado);
     return todoOk;
 }
 
@@ -317,36 +316,38 @@ int removeEmployee(LinkedList* pListaEmpleados) //VALIDAR ID
         printf("**Baja de empleado**\n");
         printAllEmployees(pListaEmpleados);
 
-        printf("Ingrese Id: "); //VALIDAR!!
-        scanf("%d",&auxId);
-
-        indice= findEmployeeById(pListaEmpleados,auxId);
-        if(indice!= -1)
+        if(getInt(&auxId,"Ingrese ID: ","Error. Reingrese ID: ",1,100000))
         {
-            printf("ID     NOMBRE     HORAS TRABAJADAS    SUELDO\n");
-            printEmployee(pListaEmpleados,indice);
-            printf("Confirma la baja?(s/n)");
-            fflush(stdin);
-            scanf("%c",&confirma);
-            if(confirma == 's')
+            indice= findEmployeeById(pListaEmpleados,auxId);
+            if(indice!= -1)
             {
-                ll_remove(pListaEmpleados,indice);
-                todoOk=1;
-                printf("Baja realizada.\n");
+                printf("ID     NOMBRE     HORAS TRABAJADAS    SUELDO\n");
+                printEmployee(pListaEmpleados,indice);
+                printf("Confirma la baja?(s/n)");
+                fflush(stdin);
+                scanf("%c",&confirma);
+                if(confirma == 's')
+                {
+                    ll_remove(pListaEmpleados,indice);
+                    todoOk=1;
+                    printf("Baja realizada.\n");
+                } else {
+                    printf("Baja cancelada.\n");
+                    system("pause");
+                }
             } else {
-                printf("Baja cancelada.\n");
-                system("pause");
+                printf("Ese ID nose encuentra en la lista.\n");
             }
-        } else {
-            printf("Ese ID nose encuentra en la lista.\n");
+
         }
+
 
     }
    return todoOk;
 }
 
 //MODIFICACION
-int modifyEmployee(LinkedList* pListaEmpleados)//VALIDAR.
+int modifyEmployee(LinkedList* pListaEmpleados)
 {
     int retorno = 0;
     int opcion;
@@ -361,74 +362,76 @@ int modifyEmployee(LinkedList* pListaEmpleados)//VALIDAR.
         printf("*****Modificar empleado****\n");
         printAllEmployees(pListaEmpleados);
 
-        printf("Ingrese el ID del empleado a modificar: "); //VALIDAR NUMERO
-        scanf("%d",&auxId);
 
-        indice= findEmployeeById(pListaEmpleados,auxId);//Lo encuentra.
-        if(indice != -1)
+        if(getInt(&auxId,"Ingrese ID: ","Error. Reingrese ID: ",1,100000))
         {
-            pAuxEmpleado= (Employee*)ll_get(pListaEmpleados,indice);//Devuelve el dato.
-
-            if(pAuxEmpleado != NULL)
+            indice= findEmployeeById(pListaEmpleados,auxId);//Lo encuentra.
+            if(indice != -1)
             {
-                do{
-                    printf("Empleado seleccionado para modificar:\n");
-                    printEmployee(pListaEmpleados,indice);
-                    opcion= menuModifyEmployee();
-                    switch(opcion)
-                    {
-                    case 1: //Modificar: NOMBRE
-                        if(modifyName(pListaEmpleados,indice))
+                pAuxEmpleado= (Employee*)ll_get(pListaEmpleados,indice);//Devuelve el dato.
+
+                if(pAuxEmpleado != NULL)
+                {
+                    do{
+                        printf("Empleado seleccionado para modificar:\n");
+                        printEmployee(pListaEmpleados,indice);
+                        opcion= menuModifyEmployee();
+                        switch(opcion)
                         {
-                            printf("Se ha realizado el cambio de nombre.\n");
-                            printEmployee(pListaEmpleados,indice);
+                        case 1: //Modificar: NOMBRE
+                            if(modifyName(pListaEmpleados,indice))
+                            {
+                                printf("Se ha realizado el cambio de nombre.\n");
+                                printEmployee(pListaEmpleados,indice);
+                                seModifico=1;
+                            } else {
+                                printf("Error al realizar la modificacion.\n");
+                            }
                             seModifico=1;
-                        } else {
-                            printf("Error al realizar la modificacion.\n");
+                            break;
+
+                        case 2://Modificar: HORAS DE TRABAJO
+                            if(modifyWorkedHours(pListaEmpleados,indice))
+                            {
+                                printf("Se ha realizado el cambio de horas de trabajo.\n");
+                                printEmployee(pListaEmpleados,indice);
+                                seModifico=1;
+                            } else {
+                                printf("Error al realizar la modificacion.\n");
+                            }
+
+                            break;
+
+                        case 3://Modificar: SUELDO
+                            if(modifySalary(pListaEmpleados,indice))
+                            {
+                                printf("Se ha realizado el cambio de sueldo.\n");
+                                printEmployee(pListaEmpleados,indice);
+                                seModifico=1;
+                            } else {
+                                printf("Error al realizar la modificacion.\n");
+                            }
+
+                            break;
+
+                        case 4:
+                            printf("Saliendo del menu de notificaciones.\n");
+                            if(!seModifico)
+                            {
+                                retorno= -1;//No se modifico nada.
+                            } else{
+                                retorno=1;//Se modifico
+                            }
+                            break;
                         }
-                        seModifico=1;
-                        break;
+                        system("pause");
+                    }while(opcion !=4);
+                }
 
-                    case 2://Modificar: HORAS DE TRABAJO
-                        if(modifyWorkedHours(pListaEmpleados,indice))
-                        {
-                            printf("Se ha realizado el cambio de horas de trabajo.\n");
-                            printEmployee(pListaEmpleados,indice);
-                            seModifico=1;
-                        } else {
-                            printf("Error al realizar la modificacion.\n");
-                        }
+            } else {
+                retorno=0;//No existe el id.
 
-                        break;
-
-                    case 3://Modificar: SUELDO
-                        if(modifySalary(pListaEmpleados,indice))
-                        {
-                            printf("Se ha realizado el cambio de sueldo.\n");
-                            printEmployee(pListaEmpleados,indice);
-                            seModifico=1;
-                        } else {
-                            printf("Error al realizar la modificacion.\n");
-                        }
-
-                        break;
-
-                    case 4:
-                        printf("Saliendo del menu de notificaciones.\n");
-                        if(!seModifico)
-                        {
-                            retorno= -1;//No se modifico nada.
-                        } else{
-                            retorno=1;//Se modifico
-                        }
-                        break;
-                    }
-                    system("pause");
-                }while(opcion !=4);
             }
-
-        } else {
-            retorno=0;//No existe el id.
       }
     }
     return retorno;
@@ -462,12 +465,12 @@ int modifyName(LinkedList* pListaEmpleados,int  indice)
 
     if(pAuxEmpleado != NULL) // y validacion da ok...
     {
-        printf("Ingrese nuevo nombre: ");
-        scanf("%s",newName);
+        if(getString(newName,"Ingrese nuevo nombre: ", "Error.riengrese nombre: ",30))
+        {
+            employee_setNombre(pAuxEmpleado,newName);
+            todoOk = 1;
 
-        employee_setNombre(pAuxEmpleado,newName);
-        todoOk = 1;
-
+        }
     }
 
     return todoOk;
@@ -484,12 +487,11 @@ int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)//VALIDAR
 
     if(pAuxEmpleado != NULL)
     {
-        printf("Ingrese horas de trabajo nuevas: ");
-        scanf("%d",&newHours);
-
-        employee_setHorasTrabajadas(pAuxEmpleado,newHours);
-        todoOk = 1;
-
+        if(getInt(&newHours,"Ingrese horas de trabajo nuevas: ","Error. REingrese horas: ",1,100000000))
+        {
+            employee_setHorasTrabajadas(pAuxEmpleado,newHours);
+            todoOk = 1;
+        }
     }
 
     return todoOk;
@@ -507,11 +509,11 @@ int modifySalary(LinkedList* pListaEmpleados,int  indice)//VALIDAR
 
     if(pAuxEmpleado != NULL)
     {
-        printf("Ingrese nuevo salario: ");
-        scanf("%d",&newSalary);
-
-        employee_setSueldo(pAuxEmpleado,newSalary);
-        todoOk = 1;
+        if(getInt(&newSalary,"Ingrese nuevo sueldo: ","Error. REingrese sueldo: ",1,10000000))
+        {
+            employee_setSueldo(pAuxEmpleado,newSalary);
+            todoOk = 1;
+        }
 
     }
 
