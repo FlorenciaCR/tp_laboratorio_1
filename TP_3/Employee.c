@@ -25,9 +25,7 @@ int mainMenu()
     printf("9- Guardar los datos de los empleados (Modo binario)\n");
     printf("10- Salir\n\n");
 
-    printf("Indique la opcion: ");
-    scanf("%d",&opcion);
-
+    getInt(&opcion,"Ingrese una opcion: ", "Error.Reingrese opcion: ",1,10);
 
     return opcion;
 }
@@ -200,7 +198,7 @@ int printAllEmployees(LinkedList* pListaEmpleados)
             system("pause");
         }
     } else {
-        printf("Error null.\n");
+        printf("Error.\n");
     }
     return todoOk;
 }
@@ -234,7 +232,7 @@ void printEmployee(LinkedList* pListaEmpleados, int indice)
 
 
 //ALTA
-int addEmployee(LinkedList* pListaEmpleados)//VALIDAR INGRESO DE DATOS.
+int addEmployee(LinkedList* pListaEmpleados)
 {
     int todoOk=0;
     char auxNombre[30];
@@ -303,7 +301,7 @@ int findEmployeeById(LinkedList* pListaEmpleados,int id)
     return indice;// -1 si no encuentra el indice, o el indice encontrado.
 }
 //BAJA
-int removeEmployee(LinkedList* pListaEmpleados) //VALIDAR ID
+int removeEmployee(LinkedList* pListaEmpleados)
 {
     int todoOk=0;
     int indice;
@@ -447,9 +445,7 @@ int menuModifyEmployee(void)
     printf("2-Cambiar horas trabajadas\n");
     printf("3-Cambiar sueldo\n");
     printf("4-Salir\n");
-    printf("Ingrese la opcion: ");
-    fflush(stdin);
-    scanf("%d",&opcion);
+    getInt(&opcion,"Ingrese una opcion: ", "Error.Reingrese opcion: ",1,10);
 
     return opcion;
 }
@@ -476,7 +472,7 @@ int modifyName(LinkedList* pListaEmpleados,int  indice)
     return todoOk;
 }
 
-int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)//VALIDAR
+int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)
 {
 
     int todoOk = 0;
@@ -497,7 +493,7 @@ int modifyWorkedHours(LinkedList* pListaEmpleados,int  indice)//VALIDAR
     return todoOk;
 }
 
-int modifySalary(LinkedList* pListaEmpleados,int  indice)//VALIDAR
+int modifySalary(LinkedList* pListaEmpleados,int  indice)
 {
 
     int todoOk = 0;
@@ -532,13 +528,12 @@ int menuSortEmployee(void)
     printf("4-Ordenar por sueldo\n");
 
     printf("5-Salir\n");
-    printf("Ingrese la opcion: ");
-    fflush(stdin);
-    scanf("%d",&opcion);
+
+    getInt(&opcion,"Ingrese una opcion: ", "Error.Reingrese opcion: ",1,10);
 
     return opcion;
 }
-int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR
+int sortEmployee(LinkedList* pListaEmpleados)
 {
     int retorno=0;
     int opcion;
@@ -548,8 +543,7 @@ int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR
     if(pListaEmpleados != NULL)
     {
         opcion = menuSortEmployee();
-        printf("Ingrese tipo de ordenamiento (1-Ascendente, 0-Descendente): ");
-        scanf("%d",&orden);
+        getInt(&orden,"Ingrese tipo de ordenamiento (1-Ascendente, 0-Descendente): ", "Error. Ingrese 1- Ascendente, 0- Descendente: ",0,1);
 
         switch(opcion)
         {
@@ -561,22 +555,27 @@ int sortEmployee(LinkedList* pListaEmpleados)//VALIDAR
         case 2:
             //Ordena por NOMBRE
             ll_sort(pListaEmpleados,sortByName,orden);
+            printf("Se han ordenado los empleados.\n");
             seOrdeno=1;
             break;
          case 3:
              //Ordena por HORAS TRABAJADAS
              ll_sort(pListaEmpleados,sortByWorkedHours,orden);
+             printf("Se han ordenado los empleados.\n");
              seOrdeno=1;
             break;
         case 4:
             //Ordena por SUELDO
             ll_sort(pListaEmpleados,sortBySalary,orden);
+            printf("Se han ordenado los empleados.\n");
             seOrdeno=1;
             break;
         case 5:
             if(!seOrdeno)
             {
                 retorno=-1;//No se ordeno.
+            } else {
+                retorno=1; //Se ordeno.
             }
             printf("Saliendo./n");
 

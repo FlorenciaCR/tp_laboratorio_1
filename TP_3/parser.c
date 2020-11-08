@@ -62,9 +62,9 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
     if(pFile != NULL && pArrayListEmployee != NULL)//Lee archivo.
     {
+            pEmpleado = employee_new();
         do
         {
-            pEmpleado = employee_new();
 
             if(fread(pEmpleado, sizeof(Employee), 1, pFile) == 1) //Lee datos binarios.
             {
@@ -72,8 +72,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
                 todoOk = 1;
             }
         }while(!feof(pFile));//Mientras no sea el final del archivo sigue leyendo.
-    } else {
-        employee_delete(pEmpleado);//Libero memoria.
     }
     return todoOk;
 }
